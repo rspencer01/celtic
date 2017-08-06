@@ -38,10 +38,14 @@ parser.add_argument('--thickness', type=float, default=1)
 parser.add_argument('--size', type=int, default=1024)
 parser.add_argument('--knot-size', type=float, default=0.12)
 parser.add_argument('-o', '--output', type=str, default='knot.png')
-parser.add_argument('spec')
+parser.add_argument('spec', default='-', nargs='?')
 args = parser.parse_args()
 
-spec = Specification(open(args.spec).read())
+if args.spec != '-':
+  spec = Specification(open(args.spec).read())
+else:
+  import sys
+  spec = Specification(sys.stdin.read())
 
 WIDTH, HEIGHT = args.size, args.size
 BLOCK_WIDTH, BLOCK_HEIGHT = args.knot_size, args.knot_size

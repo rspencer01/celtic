@@ -270,4 +270,13 @@ for start,end in zip(fixstarts, fixends):
 
 print "There were {} errors after second pass".format(len(errors))
 
-surface.write_to_png(args.output)
+# Crop
+NEW_HEIGHT = int(WIDTH * BLOCK_HEIGHT * (NUM_BLOCKS_HIGH+1))
+surface2 = cairo.ImageSurface(cairo.FORMAT_ARGB32, WIDTH, NEW_HEIGHT)
+ctx2 = cairo.Context(surface2)
+
+ctx2.set_source_surface(surface, 0, -int(HEIGHT/2. - BLOCK_HEIGHT * ((NUM_BLOCKS_HIGH+1)/2.)*HEIGHT))
+ctx2.rectangle(0, 0, WIDTH, NEW_HEIGHT);
+ctx2.fill();
+
+surface2.write_to_png(args.output)

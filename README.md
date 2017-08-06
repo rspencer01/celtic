@@ -5,11 +5,10 @@ A quick utility for rendering celtic knots.  Usage is mostly explained by the `-
 
 Sample images
 -------------
-![](./samples/IMO_logo.png)
-![](./samples/5x7.png)
-![](./samples/weave.png)
-![](./samples/kells.png)
-![](./samples/long_weave.png)
+These are all hand designed.
+<img src="samples/IMO_logo.png" width="400px"><img src="samples/5x7.png" width="400px">
+<img src="samples/weave.png" width="400px"><img src="samples/kells.png" width="400px">
+<img src="samples/long_weave.png" width="800px">
 
 Example input file
 ------------------
@@ -22,3 +21,10 @@ x-x
 |x|
 x-x
 ~~~
+
+Procedural Braids
+-----------------
+Long, thin knots (useful for borders etc) can be generated with the `generate_braid` program.  Here are some samples of various sizes.
+
+<img src="samples/braid1.png" width="400px"><img src="samples/braid2.png" width="400px">
+<img src="samples/braid3.png" width="400px"><img src="samples/braid4.png" width="400px">

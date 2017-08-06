@@ -1,0 +1,63 @@
+#!/usr/bin/env python
+
+import random
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--height', type=int, default=3)
+parser.add_argument('--unit-width', type=int, default=3)
+parser.add_argument('--units', type=int, default=8)
+parser.add_argument('--seed', type=int, default=0)
+args = parser.parse_args()
+
+
+def initialise(_width, _height):
+  global width, height, centers, junctions
+
+  width, height = _width, _height
+
+  print width, height
+  centers = [['x' for _ in xrange(width)] for __ in xrange(height)]
+
+  junctions = [['x' for _ in xrange(width+1)] for __ in xrange(height+1)]
+  for i in xrange(width+1):
+    junctions[0][i] = '-'
+    junctions[-1][i] = '-'
+  for i in xrange(height+1):
+    junctions[i][0] = '|'
+    junctions[i][-1] = '|'
+
+random.seed(args.seed)
+
+units = args.units
+unit_width = args.unit_width
+initialise(units * unit_width, args.height)
+centerpattern = [['x' for _ in xrange(unit_width)] for __ in xrange(height)]
+junctionpattern = [['x' for _ in xrange(unit_width)] for __ in xrange(height+1)]
+for i in xrange(unit_width):
+  junctionpattern[0][i] = junctionpattern[-1][i] = '-'
+
+for j in xrange(unit_width):
+  for k in xrange(1,height):
+    junctionpattern[k][j] = random.choice('xx|-')
+
+for j in xrange(unit_width):
+  for k in xrange(height):
+    centerpattern[k][j] = random.choice('xxxx|--')
+
+for i in xrange(units):
+  for j in xrange(unit_width):
+    for k in xrange(height):
+      centers[k][i*unit_width+j] = centerpattern[k][j]
+for i in xrange(units):
+  for j in xrange(unit_width):
+    for k in xrange(height+1):
+      junctions[k][i*unit_width+j] = junctionpattern[k][j]
+
+
+for i in xrange(height):
+  print ''.join(centers[i])
+
+for i in xrange(height+1):
+  print ''.join(junctions[i])
+

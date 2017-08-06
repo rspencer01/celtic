@@ -28,3 +28,17 @@ Long, thin knots (useful for borders etc) can be generated with the `generate_br
 
 <img src="samples/braid1.png" width="400px"><img src="samples/braid2.png" width="400px">
 <img src="samples/braid3.png" width="400px"><img src="samples/braid4.png" width="400px">
+
+How to Use
+----------
+Usage is very simple, but to get started try running
+~~~
+python celtic samples/5x7.spec
+~~~
+and viewing `knot.png`.
+
+For braids like the above, use (on linux/OSX)
+~~~
+./generate_braid | ./celtic
+~~~
+Use the `--help` flag for more options.

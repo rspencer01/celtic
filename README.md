@@ -1,6 +1,8 @@
 Celtic Knots
 ============
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 A quick utility for rendering celtic knots.  Usage is mostly explained by the `--help` flags, or a brief browse of the code.  Check out the samples too.
 
 Sample images

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import random
 import argparse
@@ -16,14 +16,14 @@ def initialise(_width, _height):
 
   width, height = _width, _height
 
-  print width, height
-  centers = [['x' for _ in xrange(width)] for __ in xrange(height)]
+  print(width, height)
+  centers = [['x' for _ in range(width)] for __ in range(height)]
 
-  junctions = [['x' for _ in xrange(width+1)] for __ in xrange(height+1)]
-  for i in xrange(width+1):
+  junctions = [['x' for _ in range(width+1)] for __ in range(height+1)]
+  for i in range(width+1):
     junctions[0][i] = '-'
     junctions[-1][i] = '-'
-  for i in xrange(height+1):
+  for i in range(height+1):
     junctions[i][0] = '|'
     junctions[i][-1] = '|'
 
@@ -32,32 +32,32 @@ random.seed(args.seed)
 units = args.units
 unit_width = args.unit_width
 initialise(units * unit_width, args.height)
-centerpattern = [['x' for _ in xrange(unit_width)] for __ in xrange(height)]
-junctionpattern = [['x' for _ in xrange(unit_width)] for __ in xrange(height+1)]
-for i in xrange(unit_width):
+centerpattern = [['x' for _ in range(unit_width)] for __ in range(height)]
+junctionpattern = [['x' for _ in range(unit_width)] for __ in range(height+1)]
+for i in range(unit_width):
   junctionpattern[0][i] = junctionpattern[-1][i] = '-'
 
-for j in xrange(unit_width):
-  for k in xrange(1,height):
+for j in range(unit_width):
+  for k in range(1,height):
     junctionpattern[k][j] = random.choice('xx|-')
 
-for j in xrange(unit_width):
-  for k in xrange(height):
+for j in range(unit_width):
+  for k in range(height):
     centerpattern[k][j] = random.choice('xxxx|--')
 
-for i in xrange(units):
-  for j in xrange(unit_width):
-    for k in xrange(height):
+for i in range(units):
+  for j in range(unit_width):
+    for k in range(height):
       centers[k][i*unit_width+j] = centerpattern[k][j]
-for i in xrange(units):
-  for j in xrange(unit_width):
-    for k in xrange(height+1):
+for i in range(units):
+  for j in range(unit_width):
+    for k in range(height+1):
       junctions[k][i*unit_width+j] = junctionpattern[k][j]
 
 
-for i in xrange(height):
-  print ''.join(centers[i])
+for i in range(height):
+  print(''.join(centers[i]))
 
-for i in xrange(height+1):
-  print ''.join(junctions[i])
+for i in range(height+1):
+  print(''.join(junctions[i]))
 

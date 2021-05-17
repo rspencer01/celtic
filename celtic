@@ -15,17 +15,17 @@ MAY_CROSS_HORIZONTALLY = 2
 class Specification(object):
   def __init__(self, text):
     lines = [i.strip() for i in text.split('\n')]
-    self.width, self.height = map(int, lines[0].split())
-    self.block_restrictions = [[3 for _ in xrange(self.height)] for __ in xrange(self.width)]
-    self.junction_restrictions = [[3 for _ in xrange(self.height+1)] for __ in xrange(self.width+1)]
-    for i in xrange(self.width):
-      for j in xrange(self.height):
+    self.width, self.height = list(map(int, lines[0].split()))
+    self.block_restrictions = [[3 for _ in range(self.height)] for __ in range(self.width)]
+    self.junction_restrictions = [[3 for _ in range(self.height+1)] for __ in range(self.width+1)]
+    for i in range(self.width):
+      for j in range(self.height):
         if lines[j+1][i] == '|':
           self.block_restrictions[i][j] = MAY_CROSS_VERTICALLY
         if lines[j+1][i] == '-':
           self.block_restrictions[i][j] = MAY_CROSS_HORIZONTALLY
-    for i in xrange(self.width+1):
-      for j in xrange(self.height+1):
+    for i in range(self.width+1):
+      for j in range(self.height+1):
         if lines[j+self.height+1][i] == '|':
           self.junction_restrictions[i][j] = MAY_CROSS_VERTICALLY
         if lines[j+self.height+1][i] == '-':
@@ -71,8 +71,8 @@ def clear_canvas():
 def make_guides():
   ctx.set_source_rgba(0,0,0,0.3)
   ctx.set_line_width(0.01)
-  for i in xrange(NUM_BLOCKS_WIDE):
-    for j in xrange(NUM_BLOCKS_HIGH):
+  for i in range(NUM_BLOCKS_WIDE):
+    for j in range(NUM_BLOCKS_HIGH):
       center = get_block_center(i,j)
       ctx.rectangle(center[0] - BLOCK_WIDTH/2., center[1] - BLOCK_HEIGHT/2.,
                     BLOCK_WIDTH, BLOCK_HEIGHT)
@@ -92,8 +92,8 @@ ctx.set_line_cap(cairo.LINE_CAP_ROUND)
 
 flags = spec.block_restrictions
 
-for i in xrange(NUM_BLOCKS_WIDE):
-  for j in xrange(NUM_BLOCKS_HIGH):
+for i in range(NUM_BLOCKS_WIDE):
+  for j in range(NUM_BLOCKS_HIGH):
     center = get_block_center(i,j)
     if flags[i][j] == 3:
       ctx.set_line_width(line_thickness)
@@ -131,8 +131,8 @@ for i in xrange(NUM_BLOCKS_WIDE):
 flags = spec.junction_restrictions
 
 errors = set()
-for i in xrange(NUM_BLOCKS_WIDE+1):
-  for j in xrange(NUM_BLOCKS_HIGH+1):
+for i in range(NUM_BLOCKS_WIDE+1):
+  for j in range(NUM_BLOCKS_HIGH+1):
     celldone = False
     if (flags[i][j] & MAY_CROSS_VERTICALLY) and (flags[i][j] & MAY_CROSS_HORIZONTALLY):
       if cell_present(i-1,j-1) and cell_present(i-1,j) and\
@@ -185,8 +185,8 @@ for i in xrange(NUM_BLOCKS_WIDE+1):
     if not celldone:
       errors.add((i,j))
 
-print "There were {} errors after first pass".format(len(errors))
-print "Creating side seams"
+print("There were {} errors after first pass".format(len(errors)))
+print("Creating side seams")
 lhserrors = []
 rhserrors = []
 for i in errors:
@@ -268,7 +268,7 @@ for start,end in zip(fixstarts, fixends):
     ctx.line_to(center2[0] + 0.25*BLOCK_WIDTH, center2[1]+0.5*BLOCK_HEIGHT)
   ctx.stroke()
 
-print "There were {} errors after second pass".format(len(errors))
+print("There were {} errors after second pass".format(len(errors)))
 
 # Crop
 NEW_HEIGHT = int(WIDTH * BLOCK_HEIGHT * (NUM_BLOCKS_HIGH+1))
